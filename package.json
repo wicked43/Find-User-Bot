@@ -1,0 +1,23 @@
+{
+  "name": "find-user-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://wicked43@github.com/wicked43/Find-User-Bot.git"
+  },
+  "author": "Christian K",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wicked43/Find-User-Bot/issues"
+  },
+  "homepage": "https://github.com/wicked43/Find-User-Bot#readme",
+  "dependencies": {
+    "discord.js": "^12.3.1"
+  }
+}
