@@ -20,9 +20,21 @@ client.on('message', message => {
     if (!message.content.startsWith(command) || message.author.bot || !message.channel.id == commandChannel) return;
 
     const taggedUser = message.mentions.users.first();
-
+    
+    const args = message.content.slice(command.length).trim().split(/ +/);
     try {
-        if (taggedUser) {
+        if (!message.mentions.users.size) {
+            if (commandChannel != undefined) {
+                if (message.guild.members.fetch(args).voice.channel) {
+                    let invite = message.guild.members.fetch(args).voice.channel.createInvite({ unique: true }).then(invite => {
+                        message.reply('\nDiscord-Tag: ' + taggedUser.tag + '\nChannel: ' + message.guild.members.fetch(args).voice.channel.name + '\nLink: https://discord.gg/' + invite.code)
+                    });
+                } else {
+                    message.reply('Nutzer ist in keinem Voice-Channel!')
+                }
+            }
+        }
+        else if (taggedUser) {
             if (commandChannel != undefined) {
                 if (message.guild.member(taggedUser.id).voice.channel) {
                     let invite = message.guild.member(taggedUser.id).voice.channel.createInvite({ unique: true }).then(invite => {
@@ -31,11 +43,10 @@ client.on('message', message => {
                 } else {
                     message.reply('Nutzer ist in keinem Voice-Channel!')
                 }
-            } 
+            }
         } else {
             message.reply('Kein gültiger Benutzer!');
         }
-        
     } catch (error) {
         console.error(error);
         message.reply('Fehler beim ausführen des Befehls!');
